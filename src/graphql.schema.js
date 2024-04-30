@@ -5,9 +5,9 @@ import {
   GraphQLBoolean,
   GraphQLList,
   GraphQLNonNull,
-  GraphQLNullableType,
+  GraphQLString,
 } from "graphql";
-import Todo from "./todo.model";
+import Todo from "./todo.model.js";
 
 const TodoType = new GraphQLObjectType({
   name: "Todo",
@@ -16,6 +16,7 @@ const TodoType = new GraphQLObjectType({
     title: { type: GraphQLString },
     description: { type: GraphQLString },
     isCompleted: { type: GraphQLBoolean },
+    createdAt: { type: GraphQLString },
   }),
 });
 
@@ -48,13 +49,13 @@ const Mutations = new GraphQLObjectType({
         title: { type: GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const todo = Todo.create({
           title: args.title,
           description: args.description,
         });
 
-        return { message: "Todo created", data: todo };
+        return todo;
       },
     },
 
@@ -63,18 +64,18 @@ const Mutations = new GraphQLObjectType({
       type: TodoType,
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
-        title: { type: GraphQLNullableType(GraphQLString) },
-        description: { type: GraphQLNullableType(GraphQLString) },
-        isCompleted: { type: GraphQLNullableType(GraphQLBoolean) },
+        title: { type: GraphQLString },
+        description: { type: GraphQLString },
+        isCompleted: { type: GraphQLBoolean },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const updatedTodo = Todo.findByIdAndUpdate(args.id, {
           title: args.title,
           description: args.description,
           isCompleted: args.isCompleted,
         });
 
-        return { message: "Todo updated", data: updatedTodo };
+        return updatedTodo;
       },
     },
 
@@ -84,10 +85,8 @@ const Mutations = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
-        Todo.findByIdAndDelete(args.id);
-
-        return { message: "Todo deleted" };
+      async resolve(parent, args) {
+        return Todo.findByIdAndDelete(args.id);
       },
     },
   },

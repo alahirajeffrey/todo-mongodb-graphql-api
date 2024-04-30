@@ -1,13 +1,13 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { graphqlHTTP } from "express-graphql";
-import connectDatabase from "./db";
-import schema from "./graphql.schema";
-
-const PORT = process.env.PORT || 5000;
+import { connectDatabase } from "./db.js";
+import schema from "./graphql.schema.js";
 
 const app = express();
 dotenv.config();
+
+const PORT = process.env.PORT || 5000;
 
 connectDatabase(process.env.MONGO_URI);
 
