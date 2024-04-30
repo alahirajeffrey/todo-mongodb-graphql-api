@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon src/server.js",
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js"
-
   },
   "keywords": [],
   "author": "",
@@ -21,6 +20,8 @@
     "mongoose": "^8.3.3"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.2.0",
     "nodemon": "^3.1.0"
   }
 }
