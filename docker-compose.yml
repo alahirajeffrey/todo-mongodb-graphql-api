@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  mongo_dev_db:
+    image: mongo
+    container_name: todo_graphql_api_db
+    ports:
+      - "27017:27017"
