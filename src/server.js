@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import { graphqlHTTP } from "express-graphql";
 import { connectDatabase } from "./db.js";
 import schema from "./graphql.schema.js";
+import resolvers from "./resolvers.js";
 
 const app = express();
 dotenv.config();
@@ -13,7 +14,11 @@ connectDatabase(process.env.MONGO_URI);
 
 app.use(
   "/graphql",
-  graphqlHTTP({ schema, graphiql: process.env.NODE_ENV === "development" })
+  graphqlHTTP({
+    schema,
+    rootValue: resolvers,
+    graphiql: process.env.NODE_ENV === "development",
+  })
 );
 
 app.listen(PORT, () => {
