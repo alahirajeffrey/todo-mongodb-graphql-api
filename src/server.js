@@ -2,7 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import { graphqlHTTP } from "express-graphql";
 import { connectDatabase } from "./db.js";
-import schema from "./graphql.schema.js";
+import schema from "./schema.js";
 import resolvers from "./resolvers.js";
 
 const app = express();
