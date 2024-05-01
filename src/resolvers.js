@@ -26,15 +26,13 @@ const resolvers = {
     try {
       // validate input
       if (!title || !description) {
-        return { message: "title and or description are required" };
+        throw new Error("Title and description are required");
       }
 
       const todo = await Todo.create({
         title: title,
         description: description,
       });
-
-      console.log(todo);
 
       return todo;
     } catch (error) {
@@ -47,7 +45,7 @@ const resolvers = {
     try {
       // validate input
       if (!id) {
-        return { message: "id is required" };
+        throw new Error("ID is required");
       }
       const updatedTodo = await Todo.findByIdAndUpdate(id, {
         title: title,
@@ -66,7 +64,7 @@ const resolvers = {
     try {
       // validate input
       if (!id) {
-        return { message: "id is required" };
+        throw new Error("ID is required");
       }
 
       const todo = await Todo.findByIdAndDelete(id);
