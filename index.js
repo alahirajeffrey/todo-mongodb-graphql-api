@@ -1,7 +1,7 @@
 import { graphql, buildSchema } from "graphql";
-import { connectDatabase } from "./db.js";
-import schema from "./schema.js";
-import resolvers from "./resolvers.js";
+import { connectDatabase } from "./src/db.js";
+import schema from "./src/schema.js";
+import resolvers from "./src/resolvers.js";
 
 const handler = async (event, context) => {
   try {
